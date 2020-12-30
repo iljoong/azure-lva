@@ -1,0 +1,11 @@
+_*
+.ipynb*
+.vs
+
+bin
+obj
+packages
+
+*.bak
+
+

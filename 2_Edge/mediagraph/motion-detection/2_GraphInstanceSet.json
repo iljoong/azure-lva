@@ -1,0 +1,15 @@
+{
+    "methodName": "GraphInstanceSet",
+    "responseTimeoutInSeconds": 200,
+    "payload": {
+        "@apiVersion" : "2.0",
+        "name" : "Sample-Graph-1",
+        "properties" : {
+            "topologyName" : "MotionDetection",
+            "description" : "Sample graph description",
+            "parameters" : [
+                { "name" : "rtspUrl", "value" : "rtsp://192.168.50.151/stream1" }
+            ]
+        }
+    }
+}

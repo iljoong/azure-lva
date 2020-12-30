@@ -1,0 +1,34 @@
+{
+    "methodName": "GraphInstanceSet",
+    "responseTimeoutInSeconds": 200,
+    "payload": {
+        "@apiVersion": "2.0",
+        "name": "AI-Graph-1",
+        "properties": {
+            "topologyName": "AIHttpExtension",
+            "description": "Sample graph description",
+            "parameters": [
+                {
+                    "name": "rtspUrl",
+                    "value": "rtsp://192.168.50.72"
+                },
+                {
+                    "name": "httpAIServerAddress",
+                    "value": "http://192.168.50.151:8080/score"
+                },
+                {
+                    "name": "imageScaleMode",
+                    "value": "preserveAspectRatio"
+                },
+                {
+                    "name": "frameWidth",
+                    "value": "640"
+                },
+                {
+                    "name": "frameHeight",
+                    "value": "480"
+                }
+            ]
+        }
+    }
+}

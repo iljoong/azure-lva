@@ -1,0 +1,118 @@
+<html>
+<!-- file:///C:/Users/ilkim/Downloads/work/posco_lva/analog/gauge.html -->
+<head>
+    <style>
+        .center {
+            padding: 15px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
+        .center2 {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body style="background-color:white;"></body>
+<div id="chart_div" style="width: 400px; height: 400px;" class="center"></div>
+</body>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+    google.charts.load('current', { 'packages': ['gauge'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    var chart = null;
+    var datat = null;
+    var currval = 40;
+
+    var options = {
+            width: 400, height: 400,
+            redFrom: 90, redTo: 100,
+            yellowFrom: 75, yellowTo: 90,
+            minorTicks: 5
+        };
+
+
+    function drawChart() {
+
+        chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        data = google.visualization.arrayToDataTable([
+            ['Label', 'Value'],
+            ['Memory', 80]
+        ]);
+
+        chart.draw(data, options);
+
+        /*setInterval(function () {
+            data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+            chart.draw(data, options);
+        }, 3000);*/
+        data.setValue(0, 1, currval);
+        chart.draw(data, options);
+    }
+
+    var Key = {
+        LEFT: 37,
+        UP: 38,
+        RIGHT: 39,
+        DOWN: 40
+    };
+    function _addEventListener(evt, element, fn) {
+        if (window.addEventListener) {
+            element.addEventListener(evt, fn, false);
+        }
+        else {
+            element.attachEvent('on' + evt, fn);
+        }
+    }
+
+    function handleKeyboardEvent(evt) {
+        if (!evt) { evt = window.event; } // for old IE compatible
+        var keycode = evt.keyCode || evt.which; // also for cross-browser compatible
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        switch (keycode) {
+            case Key.LEFT:
+                console.log("LEFT");
+                currval = currval - Math.round(20 * Math.random());
+                break;
+            case Key.UP:
+                console.log("UP");
+                currval = currval + 1;
+                break;
+            case Key.RIGHT:
+                console.log("RIGHT");
+                currval = currval + Math.round(20 * Math.random());
+                break;
+            case Key.DOWN:
+                console.log("DOWN");
+                currval = currval - 1; //Math.round(20 * Math.random());
+                break;
+            default:
+                console.log("LEFT");
+        }
+        if (currval > 100)
+            currval = 100;
+        if (currval < 0)
+            currval = 0;
+            
+        data.setValue(0, 1, currval);
+        chart.draw(data, options);
+    }
+
+    _addEventListener('keydown', document, handleKeyboardEvent);
+</script>
+
+</html>
