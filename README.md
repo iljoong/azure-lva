@@ -1,6 +1,6 @@
 # README
 
-///** overview image **///
+///* overview image *///
 
 This repo contains some useful resources for Azure LVA (Live Video Analytics)
 
