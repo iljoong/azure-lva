@@ -17,7 +17,7 @@ import cv2
 import matplotlib.pyplot as plt
 
 from gauge_reader import detectCircle, detectLine, get_current_value
-from gauge_utils import drawImage, cropImage
+from gauge_utils import drawImage, cropImage, removeShadow
 
 # default value
 ROI = [196,98,467,360]
@@ -41,22 +41,26 @@ def gauge_read(frame):
     cx2 = ROI[2]
     cy2 = ROI[3]
 
-    img = frame[cy1:cy2, cx1:cx2]
+    try:
+        img = frame[cy1:cy2, cx1:cx2]
 
-    x, y, r = detectCircle(img, min_r, max_r, False, False)
+        img = removeShadow(img)
+        x, y, r = detectCircle(img, min_r, max_r, False, False)
 
-    # fine tune parameter minLineLength = 50 (default 100)
-    final_line_list = detectLine(img, x, y, r, minLineLength, False, False, False)
+        # fine tune parameter minLineLength = 50 (default 100)
+        final_line_list = detectLine(img, x, y, r, minLineLength, False, False, False)
 
-    if (len(final_line_list) > 0):
-        value = get_current_value(img, final_line_list, min_angle, max_angle, min_value, max_value, x, y, r)
-        x1 = final_line_list[0][0]+cx1
-        y1 = final_line_list[0][1]+cy1
-        x2 = final_line_list[0][2]+cx1
-        y2 = final_line_list[0][3]+cy1
+        if (len(final_line_list) > 0):
+            value = get_current_value(img, final_line_list, min_angle, max_angle, min_value, max_value, x, y, r)
+            x1 = final_line_list[0][0]+cx1
+            y1 = final_line_list[0][1]+cy1
+            x2 = final_line_list[0][2]+cx1
+            y2 = final_line_list[0][3]+cy1
 
-        return value, [(x1, y1), (x2, y2)]
-    else:
+            return value, [(x1, y1), (x2, y2)]
+        else:
+            return -1, [(0, 0), (0, 0)]
+    except Exception as e:
         return -1, [(0, 0), (0, 0)]
 
 def process_image(image_data):
@@ -129,4 +133,4 @@ if __name__ == '__main__':
         print(MINLINELENGTH)
 
     # Running the file directly
-    app.run(host='0.0.0.0', port=8080)
+    app.run(host='0.0.0.0', port=8088)
