@@ -27,7 +27,7 @@ RUN mkdir /app && \
 # Copy the app file and the tags file
 COPY *.py /app/
 
-EXPOSE 8080
+EXPOSE 8088
 
 # Start app
 CMD ["python","/app/main.py"]
