@@ -43,7 +43,6 @@ def gauge_read(frame):
 
     try:
         img = frame[cy1:cy2, cx1:cx2]
-
         img = removeShadow(img)
         x, y, r = detectCircle(img, min_r, max_r, False, False)
 
