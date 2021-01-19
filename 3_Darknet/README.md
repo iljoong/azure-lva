@@ -31,22 +31,24 @@ troubleshooting
         export CUDA_HOME=/usr/local/cuda
         export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
         ```
-> see this (sample Dockerfile)[https://github.com/Azure/live-video-analytics/blob/master/utilities/video-analysis/yolov4-darknet/Dockerfile] for step by step darknet setup
+> see this [sample Dockerfile](https://github.com/Azure/live-video-analytics/blob/master/utilities/video-analysis/yolov4-darknet/Dockerfile) for step by step darknet setup. Note that this is **NOT** GPU-supported dockerfile.
 
 ## Train Darknet
 
-[See this](training/README.md)
+See [training](training/readme.md)
 
-## Sample Datasets
+### Sample Datasets
 
 Mask detection
-
 - https://towardsdatascience.com/real-time-mask-detection-with-yolov3-21ae0a1724b4
 - https://towardsdatascience.com/face-mask-detection-using-yolov5-3734ca0d60d8
 
 Hardhat detection (+MOT)
-
 - https://github.com/incheon-kim/yolov4-deepsort-helmet-detection
+
+## Build Darknet docker image
+
+See [darknetbase](darknetbase/readme.md)
 
 ## Reference
 
