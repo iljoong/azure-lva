@@ -1,31 +1,30 @@
 # README
 
-///* overview image *///
+This repo demonstrates how to build and setup Live Video Analytics service with Azure IoT, Azure LVA and Azure Stack.
 
-This repo contains some useful resources for Azure LVA (Live Video Analytics)
+![LVA architecture](./lva-architecture.png)
 
-1. [RTSP](./1_RTSP)
+## 1. [Edge](./1_Edge)
 
-RTSP source is one of important setup for LVA. This section provides how to send RTSP streaming to LVA edge using various tools. 
+This section provides a guide for IoT Edge setup and sample [media graphs](https://docs.microsoft.com/en-us/azure/media-services/live-video-analytics-edge/media-graph-concept) for LVA.
 
-2. [Edge](./2_Edge)
+RTSP source is one of important setup for LVA. This section also provides how to setup RTSP streaming to LVA edge using various tools.
 
-This section provides a guide for IoT Edge setup and sample [media graphs](https://docs.microsoft.com/en-us/azure/media-services/live-video-analytics-edge/media-graph-concept) for LVA
-
-3. [Darknet](./3_Darknet)
+## 2. [Extension](./2_Extension)
 
 This section provides how to prepare AI-enabled extensions using one of well-known AI framework and object detector, [Darknet](https://pjreddie.com/darknet/).
 
-4. [Extension](./4_Extension)
+This section also provides sample extensions for LVA.
+- [analog gauge reader](./2_Extension/gauge)
+- [pre-trained object detection](./2_Extension/yolov3-onnx-gpu)
+- trained with custom dataset, [helmet(hardtat) detection](./2_Extension/darknetpy)
 
-This section provides sample extensions for LVA.
-- [analog gauge reader](./4_Extension/gauge)
-- [object detection](./4_Extension/yolov4):
-    - yolo: pre-trained yolo3/4 model
-    - helmet(hardhat): custom dataset trained model
+## 3. [Test](./3_Test)
 
-5. [Test](./5_Test)
+Testing live video analytics with _IoT Edge_ is somewhat difficult. This section provides a testing tools for LVA. 
 
-Testing live video analytics with _IoT Edge_ is somewhat difficult. This section provides testing tools for LVA. 
-- jupyter notebook for testing AI model with video
-- Windows desktop app for testing _IoT Edge(LVA)_
+- jupyter notebook for testing AI model with video.
+- Windows desktop app for monitor/visualize _IoT Edge(LVA)_ output of above extensions.
+
+![analogreader](./analogreader.png)
+
