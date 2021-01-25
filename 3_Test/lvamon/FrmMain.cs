@@ -118,6 +118,8 @@ namespace lvamon
                     return 1;
                 case "helmetdetection":
                     return 2;
+                case "maskdetection":
+                    return 3;
             }
 
             return 0;
@@ -337,9 +339,9 @@ namespace lvamon
             g.Dispose();
         }
 
-        private void DrawHelmet(string value, int x, int y, int w, int h)
+        private void DrawColorBox(string value, string rightvalue, int x, int y, int w, int h)
         {
-            if (value == "helmet")
+            if (value == rightvalue)
             {
                 DrawBox(value, x, y, w, h);
             }
@@ -376,7 +378,16 @@ namespace lvamon
                         int y = (int)(416 * t * 480 / 416 + 0.5);
                         int w1 = (int)(416 * w * 640 / 416 + 0.5);
                         int h1 = (int)(416 * h * 480 / 416 + 0.5);
-                        DrawHelmet(value, x, y, w1, h1);
+                        DrawColorBox(value, "helmet", x, y, w1, h1);
+                    }
+                    break;
+                case 3:
+                    {
+                        int x = (int)(416 * l * 640 / 416 + 0.5);
+                        int y = (int)(416 * t * 480 / 416 + 0.5);
+                        int w1 = (int)(416 * w * 640 / 416 + 0.5);
+                        int h1 = (int)(416 * h * 480 / 416 + 0.5);
+                        DrawColorBox(value, "mask", x, y, w1, h1);
                     }
                     break;
             }

@@ -1,6 +1,7 @@
 _*
 .ipynb*
 .vs
+.vscode
 
 bin
 obj

@@ -132,7 +132,8 @@
             this.cmbMode.Items.AddRange(new object[] {
             "Analog Guage",
             "Object Detection",
-            "Helmet Detection"});
+            "Helmet Detection",
+            "Mask Detection"});
             this.cmbMode.Location = new System.Drawing.Point(62, 109);
             this.cmbMode.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cmbMode.Name = "cmbMode";
