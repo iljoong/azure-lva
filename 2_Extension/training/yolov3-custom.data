@@ -1,0 +1,5 @@
+classes = 3
+train = train.txt
+valid = test.txt
+names = yolov3-custom.names
+backup = backup
