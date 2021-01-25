@@ -14,7 +14,7 @@ If you're using live stream then use [simulated analog gauge](./gauge.html). Cli
 Dockerize the app for gauge reader .
 
 ```
-docker build -t gaugereader:latest app
+docker build -t gaugereader:latest -f Dockerfile .
 ```
 
 Run and test locally.
