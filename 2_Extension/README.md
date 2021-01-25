@@ -40,8 +40,7 @@ See [training](training/readme.md)
 ### Sample Datasets
 
 Mask detection
-- https://towardsdatascience.com/real-time-mask-detection-with-yolov3-21ae0a1724b4
-- https://towardsdatascience.com/face-mask-detection-using-yolov5-3734ca0d60d8
+- https://www.kaggle.com/andrewmvd/face-mask-detection
 
 Hardhat detection (+MOT)
 - https://github.com/incheon-kim/yolov4-deepsort-helmet-detection
