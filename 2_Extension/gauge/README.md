@@ -25,6 +25,12 @@ docker run --name gaugereader -e "ROI=196,98,467,360" -e "MINMAXMETER=40,310,0,1
 curl -X POST -H "Content-type: image/jpeg" --data-binary @"captured.jpg" localhost:8080/score 
 ```
 
+Change ROI (region of interest)
+
+```
+curl -X PUT -H "Content-Type: application/json" -d "{\"cx1\": 200, \"cy1\": 100, \"cx2\": 470, \"cy2\": 3600}" localhost:8088/api/roi
+```
+
 ## Reference
 
 - analog reader: https://github.com/intel-iot-devkit/python-cv-samples/tree/master/examples/analog-gauge-reader

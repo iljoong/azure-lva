@@ -95,6 +95,28 @@ app = Flask(__name__)
 def default_page():
     return Response(response='Ping', status=200)
 
+# /api/roi get current roi setting
+@app.route('/api/roi', methods=['GET'])
+def get_roi():
+    global ROI
+
+    roi = { "cx1": ROI[0], "cy1": ROI[1], "cx2": ROI[2], "cy2": ROI[3] }
+    return Response(json.dumps(roi), status=200)
+
+# /api/roi set roi setting
+@app.route('/api/roi', methods=['PUT'])
+def set_roi():
+    global ROI
+
+    roi = request.json
+
+    ROI[0] = roi["cx1"]
+    ROI[1] = roi["cy1"]
+    ROI[2] = roi["cx2"]
+    ROI[3] = roi["cy2"]
+
+    return Response(response='updated', status=200)
+
 # /score routes to scoring function 
 @app.route("/score", methods=['POST'])
 def score():
