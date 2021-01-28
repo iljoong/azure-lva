@@ -18,6 +18,11 @@ You have several options to setup RTSP source to LVA. Here are the recommended t
 - RTSP streaming to server:
     Download [ffmpeg](https://ffmpeg.org/download.html) and stream video to rtsp server.
 
+    Get camera device name (Windows)
+    ```
+    ffmpeg -f dshow -list_devices true -i dummy
+    ```
+
     Sending 640x480 size camera streaming with h.264 format in Windows environment.
     ```
     ffmpeg -f dshow -i video="<camera name>" -vcodec libx264 -s 640x480 -f rtsp -rtsp_transport tcp rtsp://10.10.10.10:8554/cam1
@@ -25,7 +30,7 @@ You have several options to setup RTSP source to LVA. Here are the recommended t
 
     Sending a video file instead of camera.
     ```
-    ffmpeg -re -stream_loop -1 -i "c:\filepath\vide.mp4" -vcodec libx264 -vf scale=640:480 -f rtsp -rtsp_transport tcp rtsp://10.10.10.10:8554/cam1
+    ffmpeg -re -stream_loop -1 -i "c:\filepath\video.mp4" -vcodec libx264 -vf scale=640:480 -f rtsp -rtsp_transport tcp rtsp://10.10.10.10:8554/cam1
     ```
 
 - Play RTSP streaming

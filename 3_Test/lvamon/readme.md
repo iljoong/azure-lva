@@ -17,6 +17,16 @@ Features:
 
 In development, you can set/refer secret settings like `IoThubConnectionString` in the [app secrets](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets).
 
+## user secrets
+
+This app use user secrets in _DEBUG mode_, you can store secrets, such as `IoThubConnectionString`, safely using user-secrets command.
+
+To enable and set a secret,
+```
+dotnet user-secrets init
+dotnet user-secrets set IoThubConnectionString "HostName=lva...."
+```
+
 ## build
 
 ```
@@ -28,7 +38,7 @@ dotnet build
 > https://docs.microsoft.com/en-us/dotnet/core/deploying/single-file
 
 ```
-dotnet publish -r win-x64 -c Release -o out
+dotnet publish -c Release -o out
 ```
 
 ## samples/references
