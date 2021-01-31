@@ -40,15 +40,21 @@
                             "createOptions": "{\"HostConfig\":{\"LogConfig\":{\"Type\":\"\",\"Config\":{\"max-size\":\"10m\",\"max-file\":\"10\"}},\"Binds\":[\"/var/media:/var/media/\",\"/var/lib/azuremediaservices:/var/lib/azuremediaservices/\"]}}"
                         }
                     },
-                    "rtspsim": {
-                        "version": "1.0",
+                    "rtspserver": {
+                        "settings": {
+                            "image": "aler9/rtsp-simple-server:latest",
+                            "createOptions": "{\"HostConfig\":{\"PortBindings\":{\"8554/tcp\":[{\"HostPort\":\"8554\"}]}}}"
+                        },
                         "type": "docker",
+                        "env": {
+                            "RTSP_PROTOCOLS": {
+                                "value": "tcp"
+                            }
+                        },
+                        "imagePullPolicy": "on-create",
                         "status": "running",
                         "restartPolicy": "always",
-                        "settings": {
-                            "image": "mcr.microsoft.com/lva-utilities/rtspsim-live555:1.2",
-                            "createOptions": "{\"HostConfig\":{\"Binds\":[\"/home/mtc/work/media:/live/mediaServer/media\"]}}"
-                        }
+                        "version": "1.0"
                     }
                 }
             }
