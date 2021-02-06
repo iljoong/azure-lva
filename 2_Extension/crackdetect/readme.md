@@ -19,7 +19,7 @@ Run and test locally.
 ```
 docker run --name crackdetect -p 8090:8090 -d crackdetect:latest
 
-curl -X POST -H "Content-Type: image/jpeg" --data-binary @"7012-187.jpg" http://localhost:8091/score
+curl -X POST -H "Content-Type: image/jpeg" --data-binary @"7012-187.jpg" http://localhost:8090/score
 ```
 
 ## Dataset

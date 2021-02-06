@@ -34,8 +34,9 @@ import tensorflow as tf
 
 # note: https://stackoverflow.com/questions/51127344/tensor-is-not-an-element-of-this-graph-deploying-keras-model
 class SSDModel:
-    def __init__(self):
+    def __init__(self, gpu_no):
 
+        self.gpu_no = gpu_no
         self.img_height = 300
         self.img_width = 300
         self.classes = ['background','crack','noncrack']
@@ -69,6 +70,22 @@ class SSDModel:
         ssd_loss = SSDLoss(neg_pos_ratio=3, alpha=1.0)
                 
         K.clear_session() # Clear previous models from memory.
+
+        #limit memory: https://www.tensorflow.org/guide/gpu#limiting_gpu_memory_growth
+        # TF 2.x options works for TF 1.15.5
+        gpus = tf.config.experimental.list_physical_devices('GPU')
+        if gpus:
+            try:
+                # option1: fixed size
+                tf.config.experimental.set_virtual_device_configuration(gpus[self.gpu_no], [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024)])
+                # option2: dynamic
+                #for gpu in gpus:
+                #    tf.config.experimental.set_memory_growth(gpu, True)
+                
+                # choose gpu device
+                tf.config.experimental.set_visible_devices(gpus[self.gpu_no], 'GPU')
+            except RuntimeError as e:
+                print(e)
 
         self.session = tf.Session()
         self.graph = tf.get_default_graph()
@@ -150,6 +167,7 @@ class SSDModel:
                         }
                         results.append(r)
 
+                    #print('process_time: ', inference_duration_s)
                     return results, inference_duration_s
 
         except Exception as e:
@@ -187,7 +205,13 @@ def score():
 
 if __name__ == '__main__':
 
-    ssd = SSDModel()
+    gpu_no = 0
+    _gpu_no = os.getenv("GPU_NO")
+    if (_gpu_no != None):
+        gpu_no = int(_gpu_no)
+    print('GPU device = ', gpu_no)
+
+    ssd = SSDModel(gpu_no)
     
     # Running the file directly
     app.run(host='0.0.0.0', port=8090)
