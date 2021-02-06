@@ -15,8 +15,8 @@ import darknet
 import cv2
 import matplotlib.pyplot as plt
 
-netMain = None
-metaMain = None
+import threading
+
 imgSize = 416.0
 
 class YoloV4Model:
@@ -28,9 +28,15 @@ class YoloV4Model:
         self.netMain = darknet.load_net_custom(configPath.encode("ascii"), weightPath.encode("ascii"), 0, 1)  # batch size = 1
         self.metaMain = darknet.load_meta(metaPath.encode("ascii"))
 
+        # flask/CUDA issue: https://github.com/AlexeyAB/darknet/issues/6844
+        # use lock to fix multithread issue
+        self.lock = threading.Lock()
+
     def process_image(self, image_data):
         results = []
         inference_duration_s = 0
+
+        self.lock.acquire()
 
         try:
             inference_time_start = time.time()
@@ -45,8 +51,6 @@ class YoloV4Model:
             inference_duration_s = inference_time_end - inference_time_start
 
             for d in detections:
-                w = d[2][2]
-                h = d[2][3]
                 r = {
                     "type": "entity",
                     "entity": {
@@ -55,8 +59,8 @@ class YoloV4Model:
                             "confidence": round(d[1], 4),
                         },
                         "box" : {
-                            "l" : (d[2][0]-w/2)/imgSize,
-                            "t" : (d[2][1]-h/2)/imgSize,
+                            "l" : (d[2][0]-d[2][2]/2)/imgSize,
+                            "t" : (d[2][1]-d[2][3]/2)/imgSize,
                             "w" : d[2][2]/imgSize,
                             "h" : d[2][3]/imgSize
                         }
@@ -66,6 +70,8 @@ class YoloV4Model:
         except Exception as e:
             # todo: log
             print("Error: ", e)
+        finally:
+            self.lock.release()
 
         return results, inference_duration_s
 
